@@ -43,7 +43,10 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       - name: Build Docker Image # Docker Buildkit 빌드
-        run: DOCKER_BUILDKIT=1 docker build -t ${{ env.AWS_LIGHTSAIL_SERVICE_NAME }}:release .
+        run: |
+          chmod +x ./gradlew
+          ./gradlew build
+          DOCKER_BUILDKIT=1 docker build -t ${{ env.AWS_LIGHTSAIL_SERVICE_NAME }}:release .
 
       - name: Push and Deploy # 이미지 푸시 및 배포
         run: |
