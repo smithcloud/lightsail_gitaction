@@ -7,6 +7,8 @@ COPY gradle /workspace/app/gradle
 COPY gradlew settings.gradle build.gradle /workspace/app/
 
 RUN --mount=type=cache,target=/root/.gradle ls -alh /root/.gradle; ./gradlew clean build -x test; ls -alh /root/.gradle
+RUN cd ~/libs/
+RUN ls -al 
 RUN mkdir -p build/dependencies && cd build/dependencies; jar -xf ../libs/ligthsail-example-1.0-SNAPSHOT.jar
 
 FROM openjdk:11-jre-slim
